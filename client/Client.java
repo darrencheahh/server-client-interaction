@@ -12,7 +12,7 @@ public class Client
 			System.out.println("Command not found");
 			return;
 		}
-
+		//declare command and fileName accordingly
 		String command = args[0];
 		String fileName = null;
 
@@ -29,7 +29,7 @@ public class Client
 				return;
 			}
 		}
-
+		//check if commands are put and list
 		if("put".equals(command) && "list".equals(command)) {
 			System.out.println("Error: Cannot recognise command, try again");
 			return;
@@ -43,6 +43,7 @@ public class Client
 			//send command to server (list, put, etc.)
 			out.println(command);
 
+			//handling list command to server
 			if("list".equals(command)) {
 				String summary = in.readLine();
 				System.out.println(summary);
@@ -53,6 +54,7 @@ public class Client
 				}
 			}
 
+			//handling put command to server
 			if("put".equals(command) && args.length > 1){
 				out.println(fileName);
 				//read file and send contents to server

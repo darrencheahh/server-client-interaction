@@ -16,10 +16,10 @@ public class Server {
 		//executor to manage fixed thread pool
 		ExecutorService threadPool = Executors.newFixedThreadPool(size);
 
-		try (ServerSocket ssk = new ServerSocket(serverPortNo)) {
-			System.out.println("Server is listening on port" + serverPortNo);
+		try (ServerSocket ssk = new ServerSocket(serverPortNo)) { //declaration for server socket
+			System.out.println("Server is listening on port " + serverPortNo);
 
-			//server running continously
+			//server running indefinitely
 			while (true) {
 				try {
 					//accept new connection from client
@@ -85,6 +85,7 @@ public class Server {
 			writer.write("Listing " + files.length + " file(s):");
 			writer.newLine();
 
+			//iterate through files to print them out
 			for(int i = 0; i < files.length; i++){
 				File file = files[i];
 				if(file.isFile()) {
@@ -106,12 +107,14 @@ public class Server {
 		String fileName = reader.readLine();
 		File file = new File(serverFileDir, fileName);
 
+		//check if file exists already in serverFiles directory
 		if (file.exists()){
 			writer.write("File already exist");
 			writer.newLine();
 			writer.flush();
 			return;
 		}
+		//receive files and content, then put inside serverFiles directory
 		try (BufferedOutputStream fileOut = new BufferedOutputStream(new FileOutputStream(file))) {
 			String inputLine;
 			while (!(inputLine = reader.readLine()).equals("EOF")) {
